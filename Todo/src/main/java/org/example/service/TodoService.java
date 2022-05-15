@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import org.example.model.TodoEntity;
 import org.example.model.TodoRequest;
 import org.example.repository.TodoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TodoService {
 
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
     // 아이템 추가기능
     // 목록 중 특정 아이템 조회
@@ -30,22 +32,38 @@ public class TodoService {
 
     }
 
-    public TodoEntity searchById(TodoRequest request){
-        return null;
+    public TodoEntity searchById(Long id)
+    {
+        // todo리포지터리의 findById 메소드를 활용하여 탐색, Id가 없는 경우 Not_Found exception 발생
+        return this.todoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public List<TodoEntity> serarchAll(){
-        return null;
+
+        return this.todoRepository.findAll();
     }
 
-    public TodoEntity updateById(Long id){
-        return null;
+    public TodoEntity updateById(Long id,TodoRequest request){
+        TodoEntity todoEntity = this.searchById(id);
+        if(request.getTitle() !=null){
+            todoEntity.setTitle(request.getTitle());
+        }
+        if(request.getOrder() !=null){
+            todoEntity.setOrder(request.getOrder());
+        }
+        if(request.getCompleted() !=null){
+            todoEntity.setCompleted((request.getCompleted()));
+        }
+        // 업데이트의 경우 리포지터리에서 save 메소드를 활용함
+        return this.todoRepository.save(todoEntity);
     }
 
     public void deleteById(Long id){
+        this.todoRepository.deleteById(id);
     }
 
     public void deleteAll(){
-
+        this.todoRepository.deleteAll();
     }
 }
