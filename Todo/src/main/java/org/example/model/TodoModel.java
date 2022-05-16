@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class TodoEntity {
+public class TodoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +21,7 @@ public class TodoEntity {
 
     @Column (name = "todoOrder", nullable = false)
     private Long order;
+    
     @Column (nullable = false)
     private Boolean completed;
 }

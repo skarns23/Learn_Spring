@@ -19,6 +19,7 @@ dependencies {
     //인메모리 관계형 데이터베이스인 h2에 대한 의존성 추가
     annotationProcessor("org.projectlombok:lombok:")
     compileOnly("org.projectlombok:lombok:")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 test {
