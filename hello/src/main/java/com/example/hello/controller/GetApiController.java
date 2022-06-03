@@ -1,14 +1,14 @@
 package com.example.hello.controller;
 
 
-import com.example.hello.dto.UserRequest;
+import com.example.hello.dto.GetRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController // 해당 Class는  REST API를 처리하는 Controller
 @RequestMapping("/api") // RequestMapping은 URI를 지정해주는 어노테이
-public class ApiController {
+public class GetApiController {
 
     @GetMapping("/hello") // 해당 주소가 http://localhost:8080/api/hello에 맵
     public String hello(){
@@ -59,8 +59,8 @@ public class ApiController {
     //dto방식 현업에서 가장많이 사용함 스프링부트에서는 객체가 들어오면 query-param에 대한 판단
     // key에 있는 변수들을 객체의 변수들과 매칭을 한다.
     @GetMapping("/query-param3")
-    public String queryParam3(UserRequest userRequest){
-        return userRequest.toString();
+    public String queryParam3(GetRequest getRequest){
+        return getRequest.toString();
     }
 
 }
