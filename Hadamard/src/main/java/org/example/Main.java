@@ -1,13 +1,16 @@
 package org.example;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 //21720947 남승현 이동통신 HW6.1
 public class Main {
 
 
 
     public static void main(String[] args) {
-        boolean val = false;
+        boolean val = false; // 1번에 대한 seed값
+        int start_val = -1; // Walsh code set의 seed 값
         boolean[][] result_A = new boolean[32][32]; //32*32 orthgonal code set을 담을 배열
         int[][] result_B = new int[32][32]; // 32* 32 Walsh code Set을 담을 배열
         int menu; // 입력 메뉴
@@ -25,7 +28,7 @@ public class Main {
             switch (menu){
                 case 1:
                     boolean H1[][] = new boolean[2][2]; //기본으로 넘길 배열 2*2 크기
-                    for(int i = 0 ; i< H1.length;i++){
+                    for(int i = 0 ; i< H1.length;i++){ // seed값 (val)에 대한 2*2 orthogonal code set 생성
                         for(int j = 0 ; j< H1.length;j++){
                             if(i>=H1.length/2 && j>=H1.length/2)
                                 val = !val; //마지막 위치에서 값을 뒤집어서 담아줌
@@ -35,11 +38,11 @@ public class Main {
                     result_A = solution_A(H1);
                     break;
                 case 2:
-                    int start_val = -1;
-                    int[][] WH1 = new int[2][2];
-                    for(int i = 0 ;i< WH1.length;i++){
+
+                    int[][] WH1 = new int[2][2]; //2*2행렬 크기의 배열 초기화
+                    for(int i = 0 ;i< WH1.length;i++){ // seed값 (start_val)에 대한 2*2 walsh code set 생성
                         for(int j =0;j<WH1.length;j++){
-                            if(i>= WH1.length/2 && j>=WH1.length/2)
+                            if(i>= WH1.length/2 && j>=WH1.length/2) // 제 4사분면인지 판단하는 if문    4사 분면인 경우 값을 뒤집어서 넣어줌
                             {
                                 start_val *= -1;
                                 WH1[i][j] = start_val;
@@ -69,7 +72,7 @@ public class Main {
         if(H.length==32){  //현재 배열의 크기가 32이면 return
             System.out.println("Solution_A : 32*32 othogonal code set");
             String s = "%3d";
-            for(int i = 0 ; i<H.length;i++){ //boolean 형태로 담아서 바꿔주는 과정 필요
+            for(int i = 0 ; i<H.length;i++){ //boolean 형태로 담겨져있으므로 바꿔주는 과정 필요
                 for(int j = 0 ; j< H.length;j++){
                     if(H[i][j])
                         System.out.printf(s,1);
@@ -118,11 +121,11 @@ public class Main {
     }
 
     public static void solution_C (int[][]H){
-        int [] arr = new int[]{0,6,17,21};
+        int [] arr = new int[]{0,6,17,21}; //0 6 17 21번째 위치 값을 배열에 담아 놓음
         for(int i :arr){
             System.out.print("H[5]["+i+"] = \n");
             for(int j = 0; j<H.length;j++)
-                System.out.print(H[i][j]+" ");
+                System.out.printf(String.format("%3d", H[i][j]));
             System.out.println();
         }
     }

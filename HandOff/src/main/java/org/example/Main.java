@@ -13,13 +13,13 @@ public class Main {
     public static int[][] result;
 
     public static void main(String[] args) throws IOException {
-        long start_time = System.currentTimeMillis();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //BufferReader로 입력받아서 출력해서 시간 줄임
         len = Integer.parseInt(br.readLine()); // 행렬의 크기 입력
         arr = new int [len][len]; //지도의 정보를 담을 배열
         visited = new boolean[len][len]; // BFS에서 방문한 배열의 위치를 저장하는 배열
         result = new int [len][len]; // BFS후 결과를 담아주는 배열
-        br.read(); // 행렬의 크기입력받고 남은 개행문자 처리
+        //br.read(); // 행렬의 크기입력받고 남은 개행문자 처리
         for(int i =0; i <len;i++){ // 입력받는 단계
             String str = br.readLine(); // 행별로 읽어서 문자열에 담음
             for(int j = 0 ; j<len;j++){
@@ -28,10 +28,10 @@ public class Main {
             }
         }
         visited[0][0] = true; // 시작하는 노드의 위치의 경우 방문하고 시작하기때문에 true로 초기화 해줌
-
+        long start_time = System.currentTimeMillis(); //시작 시간
         BFS(0,0); // BFS를 통한 최단 경로값 탐색
-        long end_time = System.currentTimeMillis();
-        System.out.println("소요시간 : "+((end_time-start_time)/1000));
+        long end_time = System.currentTimeMillis(); // BFS 종료 후 끝난 시간
+        System.out.println("소요시간 : "+((double)(end_time-start_time)/1000)+"초"); // 시간을 초단위로 바꿔서 보여줌
 
     }
     public static void BFS(int row, int col){
@@ -62,7 +62,7 @@ public class Main {
                 System.out.printf(String.format("%3d", result[i][j]));
             System.out.println();
         }*/
-        System.out.println(node.val);
+        System.out.println("최단 경로 값 : "+node.val);
 
     }
 
